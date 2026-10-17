@@ -1,8 +1,9 @@
 name: CI/CD Pipeline
 
+# se cambia en push dev por main
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -21,16 +22,17 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
-        python-version: '3.1'
+        python-version: '3.11'
 
+    # se cambia requirement.txt por requirements.txt 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirement.txt
+        python -m pip install -r requirements.txt 
 
     - name: Test with pytest
       run: |
-        python -m pytest tests/
+        python -m pytest app/
         
   build:
     name: Build
@@ -101,7 +103,7 @@ jobs:
           sleep 2
         done
 
-    - name: Validate /ping endpoint
+    - name: Validate /health endpoint
       run: |
         response=$(curl -sf http://localhost:5000/health)
         echo "Response: $response"
