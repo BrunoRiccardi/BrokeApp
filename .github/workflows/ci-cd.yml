@@ -30,6 +30,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt 
 
+    # se cambia test/ por app/
     - name: Test with pytest
       run: |
         python -m pytest app/
@@ -103,6 +104,7 @@ jobs:
           sleep 2
         done
 
+    # se cambia /ping por /health
     - name: Validate /health endpoint
       run: |
         response=$(curl -sf http://localhost:5000/health)
